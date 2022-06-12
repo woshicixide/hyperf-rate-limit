@@ -32,7 +32,7 @@ class RateLimit extends AbstractAnnotation
     public $consume;
 
     /**
-     * @var int
+     * @var int|callable
      */
     public $capacity;
 

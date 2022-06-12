@@ -69,6 +69,13 @@ class RateLimitAnnotationAspect implements AroundInterface
     {
         $annotation = $this->getWeightingAnnotation($this->getAnnotations($proceedingJoinPoint));
 
+        $capacity = $annotation->capacity;
+        if (is_callable($annotation->capacity)) {
+            $capacityNum = $capacity($proceedingJoinPoint)
+        } else {
+            $capacityNum = $capacity;
+        }
+
         $bucketKey = $annotation->key;
         if (is_callable($bucketKey)) {
             $bucketKey = $bucketKey($proceedingJoinPoint);
@@ -77,7 +84,7 @@ class RateLimitAnnotationAspect implements AroundInterface
             $bucketKey = $this->request->getUri()->getPath();
         }
 
-        $bucket = $this->rateLimitHandler->build($bucketKey, $annotation->create, $annotation->capacity, $annotation->waitTimeout);
+        $bucket = $this->rateLimitHandler->build($bucketKey, $annotation->create, $capacityNum, $annotation->waitTimeout);
 
         $maxTime = microtime(true) + $annotation->waitTimeout;
         $seconds = 0;
