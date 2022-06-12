@@ -71,7 +71,7 @@ class RateLimitAnnotationAspect implements AroundInterface
 
         $capacity = $annotation->capacity;
         if (is_callable($annotation->capacity)) {
-            $capacityNum = $capacity($proceedingJoinPoint)
+            $capacityNum = $capacity($proceedingJoinPoint);
         } else {
             $capacityNum = $capacity;
         }
