@@ -1,5 +1,5 @@
 {
-    "name": "woshicixide/hyperf-rate-limit",
+    "name": "woshicixide/hyperf-ratelimit",
     "description": "A rate limiter implemented for Hyperf or other coroutine framework",
     "license": "MIT",
     "keywords": [
